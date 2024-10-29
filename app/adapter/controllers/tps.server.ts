@@ -2,6 +2,7 @@ import { CreateTpsUseCase } from "~/application/use-cases/tps/create-tps.use-cas
 import { FindTpsUseCase } from "~/application/use-cases/tps/find-tps.use-case";
 import { GetTpsDataUseCase } from "~/application/use-cases/tps/get-tps-data.use-case";
 import { UpdateTpsUseCase } from "~/application/use-cases/tps/update-tps.use-case";
+import { TPS } from "~/domain";
 import { ManageTpsDto } from "~/infra/dtos/manage-tps.dto";
 import { ApiTpsRepository } from "~/infra/repositories/api-tps.repo";
 import { RemixSessionRepository } from "~/infra/session/remix-session.repo";
@@ -32,11 +33,30 @@ export async function manageTps(formData: FormData, request: Request) {
     return updateTpsUseCase.execute(tpsData, request.headers.get("Cookie"));
 }
 
-export async function getTps(villageId: number | string, request: Request) {
-  return getTpsDataUseCase.getTps(
+export async function getTps(
+  villageId: number | string,
+  request: Request,
+  type: string = "normal"
+) {
+  const tps = await getTpsDataUseCase.getTps(
     villageId,
     request.headers.get("Cookie") || ""
   );
+  if (type == "select") {
+    const data = tps?.data.map((item: TPS) => {
+      return {
+        value: item.id.toString(),
+        label: `${item.name}`,
+      };
+    });
+
+    return {
+      data,
+      meta: tps?.meta,
+    };
+  } else {
+    return tps;
+  }
 }
 
 export async function getTpsById(tpsId: number | string, request: Request) {

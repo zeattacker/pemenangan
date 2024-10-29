@@ -15,8 +15,6 @@ import { action } from "~/routes/_app._index";
 export default function LoginPage() {
   const actionData = useActionData<typeof action>();
 
-  console.log(actionData);
-
   useEffect(() => {
     if (actionData && actionData?.error) {
       notifications.show({

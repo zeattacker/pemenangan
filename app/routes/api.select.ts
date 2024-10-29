@@ -4,7 +4,7 @@ import {
   getNeighborhoodsSelect,
 } from "~/adapter/controllers/area.server";
 import { getDPTs } from "~/adapter/controllers/dpt.server";
-import { getTpsSelect } from "~/adapter/controllers/tps.server";
+import { getTps, getTpsSelect } from "~/adapter/controllers/tps.server";
 import { getVillages } from "~/adapter/controllers/village.server";
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -31,8 +31,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     } else if (type == "neighborhoods") {
       return json([...(await getNeighborhoodsSelect(query)).data]);
     } else if (type == "tps") {
-      const tps = await getTpsSelect(query, request);
-      return json([...tps.data!]);
+      const tps = await getTps(query, request, "select");
+      return json(tps?.data ? [...tps.data] : []);
     } else if (type == "dpt") {
       const dpts = await getDPTs(
         { name: query, page, limit },

@@ -47,6 +47,14 @@ export default function RegisterPage() {
       neighborhoodId: "",
       tpsId: "",
     },
+    validate: {
+      fullName: (value) =>
+        value.length < 4 ? "Nama lengkap minimal 4 karakter" : null,
+      phoneNumber: (value) =>
+        /^62\d{8,}$/.test(value)
+          ? null
+          : "Nomor handphone harus diawali dengan 62",
+    },
   });
 
   useEffect(() => {
@@ -62,8 +70,7 @@ export default function RegisterPage() {
       } else {
         notifications.show({
           title: "Pendaftaran Gagal",
-          message:
-            "Sepertinya akun anda sudah terdaftar, atau periksa kembali data diri anda",
+          message: actionData.error || `Terjadi kesalahan saat registrasi`,
           color: "red",
           position: "top-center",
         });
@@ -90,10 +97,7 @@ export default function RegisterPage() {
                 />
                 <TextInput
                   label="No. Handphone"
-                  leftSectionPointerEvents="none"
-                  leftSection="+62"
-                  leftSectionWidth={50}
-                  placeholder="Cth: 8213456789"
+                  placeholder="Cth: 628213456789"
                   radius="xl"
                   key={form.key("phoneNumber")}
                   {...form.getInputProps("phoneNumber")}
@@ -147,14 +151,17 @@ export default function RegisterPage() {
                   searchable
                   key={form.key("districtId")}
                   value={form.getValues().districtId}
-                  onChange={(value) =>
-                    form.setValues({
-                      districtId: value!,
-                      villageId: "",
-                      neighborhoodId: "",
-                      tpsId: "",
-                    })
-                  }
+                  onChange={(value) => {
+                    if (value !== form.getValues().districtId) {
+                      form.setValues({
+                        villageId: "",
+                        neighborhoodId: "",
+                        tpsId: "",
+                      });
+                    }
+
+                    form.setFieldValue("districtId", value!);
+                  }}
                 />
                 <AreaSelect
                   name="kelurahanId"
@@ -164,13 +171,16 @@ export default function RegisterPage() {
                   value={form.getValues().villageId}
                   queryId={form.getValues().districtId}
                   key={form.key("villageId")}
-                  onChange={(value) =>
-                    form.setValues({
-                      villageId: value!,
-                      neighborhoodId: "",
-                      tpsId: "",
-                    })
-                  }
+                  onChange={(value) => {
+                    if (value !== form.getValues().villageId) {
+                      form.setValues({
+                        neighborhoodId: "",
+                        tpsId: "",
+                      });
+                    }
+
+                    form.setFieldValue("villageId", value!);
+                  }}
                 />
                 <AreaSelect
                   name="neighborhood"
@@ -183,6 +193,20 @@ export default function RegisterPage() {
                   onChange={(value) =>
                     form.setValues({
                       neighborhoodId: value!,
+                    })
+                  }
+                />
+                <AreaSelect
+                  name="tps"
+                  label="TPS"
+                  placeholder="Pilih TPS"
+                  area="tps"
+                  value={form.getValues().tpsId}
+                  queryId={form.getValues().villageId}
+                  key={form.key("tpsId")}
+                  onChange={(value) =>
+                    form.setValues({
+                      tpsId: value!,
                     })
                   }
                 />

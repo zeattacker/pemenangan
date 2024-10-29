@@ -26,6 +26,8 @@ export class ApiUserRepository implements IUserRepository {
       },
       body: JSON.stringify(userData),
     });
+
+    console.log(response);
     return response.json();
   }
 

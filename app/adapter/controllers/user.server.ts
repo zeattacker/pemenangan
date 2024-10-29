@@ -94,7 +94,7 @@ export async function registerUser(formData: FormData) {
   const userData: RegisterUserDto = {
     fullName,
     username,
-    phoneNumber: "62" + phoneNumber,
+    phoneNumber: phoneNumber,
     email,
     group,
     districtId: +districtId,

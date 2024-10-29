@@ -1,4 +1,9 @@
-import { ActionFunctionArgs, json, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import {
+  ActionFunctionArgs,
+  json,
+  LoaderFunctionArgs,
+  MetaFunction,
+} from "@remix-run/node";
 import { getDistrictsSelect } from "~/adapter/controllers/area.server";
 import { registerUser } from "~/adapter/controllers/user.server";
 import { ErrorResponseDto } from "~/infra/dtos/error-response.dto";
@@ -30,7 +35,7 @@ export async function action({ request }: ActionFunctionArgs) {
 
     if ("errors" in user) throw user;
 
-    return json({ success: true, data: user });
+    return json({ success: true, data: user, error: "" });
   } catch (error) {
     return json(
       { success: false, error: (error as ErrorResponseDto).errors[0].detail },
