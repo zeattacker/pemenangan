@@ -1,0 +1,8 @@
+.input {
+  margin-top: 4px;
+  border-radius: 8px;
+  border-color: var(--mantine-color-gray-3);
+  &:focus-within {
+    outline: 1px solid var(--mantine-color-blue-filled);
+  }
+}
