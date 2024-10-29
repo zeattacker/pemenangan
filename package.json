@@ -22,6 +22,7 @@
     "@mantine/nprogress": "^7.13.4",
     "@mantine/spotlight": "^7.13.4",
     "@mantine/tiptap": "^7.13.4",
+    "@onesignal/node-onesignal": "^5.0.0-alpha-01",
     "@remix-pwa/worker-runtime": "^2.1.4",
     "@remix-run/node": "^2.12.1",
     "@remix-run/react": "^2.12.1",
