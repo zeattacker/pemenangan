@@ -12,6 +12,7 @@ import drawerClasses from "~/styles/drawer.module.css";
 
 interface DeleteItemPageProps {
   type?: string;
+  callbackUrl?: string;
 }
 
 interface ItemLoaderProps {
@@ -21,14 +22,20 @@ interface ItemLoaderProps {
 
 export function withDeleteType(
   WrappedComponent: React.ComponentType<DeleteItemPageProps>,
-  type: string
+  type: string,
+  callbackUrl: string
 ) {
   return function WithType(props: Omit<DeleteItemPageProps, "type">) {
-    return <WrappedComponent {...props} type={type} />;
+    return (
+      <WrappedComponent {...props} type={type} callbackUrl={callbackUrl} />
+    );
   };
 }
 
-export default function DeleteItemPage({ type = "Data" }: DeleteItemPageProps) {
+export default function DeleteItemPage({
+  type = "Data",
+  callbackUrl = "/panel/dashboard",
+}: DeleteItemPageProps) {
   const navigate = useNavigate();
   const submit = useSubmit();
   const data = useLoaderData<ItemLoaderProps>(); //non casting typeof
@@ -43,7 +50,7 @@ export default function DeleteItemPage({ type = "Data" }: DeleteItemPageProps) {
           color: "green",
           position: "top-center",
         });
-        navigate("/panel/voter");
+        navigate(callbackUrl);
       } else {
         notifications.show({
           title: "Oops...",
@@ -53,7 +60,7 @@ export default function DeleteItemPage({ type = "Data" }: DeleteItemPageProps) {
         });
       }
     }
-  }, [actionData, data, navigate]);
+  }, [actionData, data, navigate, callbackUrl]);
 
   return (
     <Drawer.Root

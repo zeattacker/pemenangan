@@ -4,7 +4,7 @@ import {
   createTheme,
   Input,
   MantineProvider,
-  rem
+  rem,
 } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import type { LinksFunction } from "@remix-run/node";
@@ -85,6 +85,24 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Meta />
         <Links />
         <ColorSchemeScript />
+        <script
+          src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+          defer
+        ></script>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "d13d8de8-9879-4edd-8ba8-8b994a5809db",
+      safari_web_id: "web.onesignal.auto.43666e9c-a8ad-4b1e-8de4-10291bcbdb86",
+      notifyButton: {
+        enable: true,
+      },
+    });
+  });`,
+          }}
+        />
       </head>
       <body>
         <MantineProvider theme={mantineTheme}>

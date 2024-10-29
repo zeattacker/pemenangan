@@ -27,12 +27,27 @@ import drawerClasses from "~/styles/drawer.module.css";
 
 export default function ManageUserPage() {
   const navigate = useNavigate();
-  const { districts } = useLoaderData<typeof loader>();
+  const { districts, user: activeUser } = useLoaderData<typeof loader>();
   const actionData = useActionData<typeof action>();
   const { id } = useParams();
   const location = useLocation();
   const user = location.state as User;
   const submit = useSubmit();
+  const roles = [
+    { label: "Korcam", value: "Korcam" },
+    { label: "Korkel", value: "Korkel" },
+    { label: "Relawan", value: "Relawan" },
+    { label: "Saksi", value: "Saksi" },
+  ];
+  let group = "Korcam";
+  if (activeUser?.hasGroups.includes("Korcam")) {
+    roles.splice(0, 1);
+    group = "Korkel";
+  }
+  if (activeUser?.hasGroups.includes("Korkel")) {
+    roles.splice(0, 2);
+    group = "Relawan";
+  }
 
   const form = useForm({
     mode: "uncontrolled",
@@ -43,12 +58,20 @@ export default function ManageUserPage() {
       phoneNumber: user?.userExtend ? user?.userExtend?.phoneNumber : "",
       password: "",
       email: user ? user.email : "",
-      districtId: user?.district ? user.district.id.toString() : "",
-      villageId: user?.village ? user.village.id.toString() : "",
+      districtId: user?.district
+        ? user.district.id.toString()
+        : activeUser?.isAdmin
+        ? ""
+        : activeUser?.district?.id.toString(),
+      villageId: user?.village
+        ? user.village.id.toString()
+        : activeUser?.isAdmin
+        ? ""
+        : activeUser?.village.id.toString(),
       neighborhoodId: user?.neighborhood ? user.neighborhood.id.toString() : "",
       tpsId: user?.votingStations ? user.votingStations.id.toString() : "",
       isActive: user ? user.isActive : false,
-      group: user?.hasGroups ? user?.hasGroups[0] : "Korcam",
+      group: user?.hasGroups ? user?.hasGroups[0] : group,
     },
   });
   const isOpen = location.pathname.includes("/panel/users/manage");
@@ -150,6 +173,7 @@ export default function ManageUserPage() {
                 data={(districts?.data as ComboboxData) || []}
                 searchable
                 key={form.key("districtId")}
+                disabled={!activeUser?.isAdmin}
                 value={form.getValues().districtId}
                 onChange={(value) =>
                   form.setValues({
@@ -168,7 +192,8 @@ export default function ManageUserPage() {
                   placeholder="Pilih Kelurahan"
                   area="villages"
                   value={form.getValues().villageId}
-                  queryId={form.getValues().districtId}
+                  queryId={form.getValues().districtId || ""}
+                  disabled={activeUser?.hasGroups.includes("Korkel")}
                   key={form.key("villageId")}
                   onChange={(value) =>
                     form.setValues({
@@ -189,7 +214,7 @@ export default function ManageUserPage() {
                   placeholder="Pilih Lingkungan"
                   area="neighborhoods"
                   value={form.getValues().neighborhoodId}
-                  queryId={form.getValues().villageId}
+                  queryId={form.getValues().villageId || ""}
                   key={form.key("neighborhoodId")}
                   onChange={(value) =>
                     form.setFieldValue("neighborhoodId", value!)
@@ -204,7 +229,7 @@ export default function ManageUserPage() {
                   placeholder="Pilih TPS"
                   area="tps"
                   value={form.getValues().neighborhoodId}
-                  queryId={form.getValues().villageId}
+                  queryId={form.getValues().villageId || ""}
                   key={form.key("tpsId")}
                   onChange={(value) => form.setFieldValue("tpsId", value!)}
                 />
@@ -217,12 +242,7 @@ export default function ManageUserPage() {
               <SegmentedControl
                 disabled={id ? true : false}
                 color="greenBrand"
-                data={[
-                  { label: "Korcam", value: "Korcam" },
-                  { label: "Korkel", value: "Korkel" },
-                  { label: "Relawan", value: "Relawan" },
-                  { label: "Saksi", value: "Saksi" },
-                ]}
+                data={roles}
                 value={form.getValues().group}
                 onChange={(value) => form.setFieldValue("group", value)}
               />

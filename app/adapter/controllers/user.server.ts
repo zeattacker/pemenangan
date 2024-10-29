@@ -1,6 +1,8 @@
 import { RegisterUserUseCase } from "~/application/use-cases/auth/register-user.use-case";
 import { GetUserDataUseCase } from "~/application/use-cases/get-user-data.use-case";
 import { CreateUserUseCase } from "~/application/use-cases/users/create-user.use-case";
+import { DeleteUserUseCase } from "~/application/use-cases/users/delete-user.use-case";
+import { FindUserUseCase } from "~/application/use-cases/users/find-user.use-case";
 import { UpdateUserUseCase } from "~/application/use-cases/users/update-user.use-case";
 import { ManageUserDto } from "~/infra/dtos/manage-user.dto";
 import { RegisterUserDto } from "~/infra/dtos/register-user.dto";
@@ -21,6 +23,8 @@ const updateUserUseCase = new UpdateUserUseCase(
   userRepository,
   sessionRepository
 );
+const deleteUserUC = new DeleteUserUseCase(userRepository, sessionRepository);
+const findUserUC = new FindUserUseCase(userRepository, sessionRepository);
 
 export async function getUsers(request: Request) {
   return getUserDataUseCase.getUsers(request.headers.get("Cookie"));
@@ -103,4 +107,12 @@ export async function registerUser(formData: FormData) {
   if (userData.votingStationId == 0) delete userData.votingStationId;
 
   return registerUseCase.execute(userData);
+}
+
+export async function deleteUser(userId: number | string, request: Request) {
+  return deleteUserUC.execute(userId, request.headers.get("Cookie"));
+}
+
+export async function getDptById(userId: number | string, request: Request) {
+  return findUserUC.execute(userId, request.headers.get("Cookie"));
 }

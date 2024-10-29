@@ -41,6 +41,9 @@ export default function CardUser({ user }: { user: User }) {
           color="red"
           variant="outline"
           fullWidth
+          onClick={() =>
+            navigate(`/panel/users/delete/${user.id}`, { state: user })
+          }
         >
           Hapus
         </Button>

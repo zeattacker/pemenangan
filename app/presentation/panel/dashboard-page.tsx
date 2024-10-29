@@ -7,141 +7,149 @@ import {
   IconChevronRight,
   IconHome,
   IconPackage,
+  IconUserCheck,
+  IconUserEdit,
   IconUserHeart,
 } from "@tabler/icons-react";
 import { loader } from "~/routes/panel.dashboard";
 
 export default function DashboardPage() {
   const navigate = useNavigate();
-  const { user } = useLoaderData<typeof loader>();
+  const { user, dashboardTop } = useLoaderData<typeof loader>();
 
   return (
     <Flex direction="column" gap="lg">
       <SimpleGrid cols={2}>
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="sm" c="gray.8">
-                Total Saksi
-              </Text>
-              <Text size="40px" fw="bolder">
-                100
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="red.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconAdjustments
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="md" c="gray.8">
-                Saksi Terdaftar
-              </Text>
-              <Text size="40px" fw="bolder">
-                100
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="red.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconAdjustments
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="sm" c="gray.8">
-                Total Relawan
-              </Text>
-              <Text size="40px" fw="bolder">
-                100
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="red.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconAdjustments
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="sm" c="gray.8">
-                Relawan Terdaftar
-              </Text>
-              <Text size="40px" fw="bolder">
-                100
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="red.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconAdjustments
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
+        {(user?.hasGroups.includes("Korcam") ||
+          user?.hasGroups.includes("Korkel") ||
+          user?.hasGroups.includes("Admin")) && (
+          <>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="sm" c="gray.8">
+                    Total Saksi
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {dashboardTop?.data?.saksiCount || 0}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="blue.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserCheck
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="md" c="gray.8">
+                    Saksi Terdaftar
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {dashboardTop?.data?.saksiRegisteredCount || 0}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="green.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserCheck
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="sm" c="gray.8">
+                    Total Relawan
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {dashboardTop?.data?.relawanCount || 0}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="blue.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserHeart
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="sm" c="gray.8">
+                    Relawan Terdaftar
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {dashboardTop?.data?.relawanRegisteredCount}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="green.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserHeart
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+          </>
+        )}
         <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
           <Flex
             gap="md"
@@ -155,17 +163,17 @@ export default function DashboardPage() {
                 Total DPT
               </Text>
               <Text size="40px" fw="bolder">
-                100
+                {dashboardTop?.data?.voterCount || 0}
               </Text>
             </Flex>
             <Flex
               align="center"
               justify="center"
-              bg="red.6"
+              bg="blue.6"
               p="sm"
               style={{ borderRadius: "100%" }}
             >
-              <IconAdjustments
+              <IconUserEdit
                 style={{ width: "20px", height: "20px" }}
                 stroke={1.5}
                 color="white"
@@ -186,17 +194,17 @@ export default function DashboardPage() {
                 DPT Terdaftar
               </Text>
               <Text size="40px" fw="bolder">
-                100
+                {dashboardTop?.data?.voterRegisterdCount || 0}
               </Text>
             </Flex>
             <Flex
               align="center"
               justify="center"
-              bg="red.6"
+              bg="green.6"
               p="sm"
               style={{ borderRadius: "100%" }}
             >
-              <IconAdjustments
+              <IconUserEdit
                 style={{ width: "20px", height: "20px" }}
                 stroke={1.5}
                 color="white"

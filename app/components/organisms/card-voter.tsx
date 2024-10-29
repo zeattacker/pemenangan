@@ -69,13 +69,13 @@ export default function CardVoter({
       <SimpleGrid cols={2} my="xs">
         <ItemCardDpt
           icon={<IconBuildings size="16px" />}
-          title="RT"
-          content={voter.dpt.rt}
+          title="TPS"
+          content={voter.dpt.votingStation.name}
         />
         <ItemCardDpt
           icon={<IconPencilBolt size="16px" />}
-          title="RW"
-          content={voter.dpt.rw}
+          title="RT/RW"
+          content={`${voter.dpt.rt}/${voter.dpt.rw}`}
         />
         <ItemCardDpt
           icon={<IconIdBadge size="16px" />}

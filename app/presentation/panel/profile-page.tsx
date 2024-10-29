@@ -7,15 +7,16 @@ import {
   Image,
   Paper,
   Text,
-  TextInput
+  TextInput,
 } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useLoaderData } from "@remix-run/react";
+import { useLoaderData, useSubmit } from "@remix-run/react";
 import { IconAt, IconLogout } from "@tabler/icons-react";
 import { loader } from "~/routes/panel.profile";
 
 export default function ProfilePage() {
   const { user } = useLoaderData<typeof loader>();
+  const submit = useSubmit();
 
   const form = useForm({
     initialValues: {
@@ -59,6 +60,7 @@ export default function ProfilePage() {
             color="blue"
             mt="md"
             radius="md"
+            onClick={() => submit({}, { method: "DELETE" })}
             leftSection={<IconLogout size="16px" />}
           >
             Logout

@@ -8,26 +8,14 @@ import { ManageUserDto } from "../dtos/manage-user.dto";
 export class ApiUserRepository implements IUserRepository {
   constructor(private apiUrl: string) {}
 
-  async getUserById(
-    userId: string | number,
-    accessToken: string
-  ): Promise<User> {
+  async getUserById(userId: string | number, accessToken: string) {
     const response = await fetch(`${this.apiUrl}/users/${userId}`, {
       headers: {
         Authorization: `Bearer ${accessToken}`,
       },
     });
 
-    if (!response.ok) {
-      if (response.status === 401) {
-        throw new TokenExpiredError("Access token expired");
-      }
-      throw new Error("Failed to fetch user data");
-    }
-
-    const data = (await response.json()).data;
-
-    return data;
+    return response.json();
   }
 
   async registerUser(userData: Omit<RegisterUserDto, "id">): Promise<User> {
@@ -86,5 +74,17 @@ export class ApiUserRepository implements IUserRepository {
     } catch (err) {
       console.log(err);
     }
+  }
+
+  async deleteUser(userId: string | number, accessToken: string) {
+    const response = await fetch(`${this.apiUrl}/users/${userId}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+
+    return response.text();
   }
 }

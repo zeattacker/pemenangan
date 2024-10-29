@@ -6,7 +6,10 @@ import { ManageUserDto } from "~/infra/dtos/manage-user.dto";
 
 export interface IUserRepository {
   getUsers(accessToken: string): Promise<PaginationResponseDto<User[]>>;
-  getUserById(userID: string | number, accessToken: string): Promise<User>;
+  getUserById(
+    userID: string | number,
+    accessToken: string
+  ): Promise<ObjectResponse<User>>;
   createUser(
     userData: Omit<ManageUserDto, "id">,
     accessToken: string
@@ -16,5 +19,6 @@ export interface IUserRepository {
     userId: number | string,
     accessToken: string
   ): Promise<ObjectResponse<User>>;
+  deleteUser(userId: string | number, accessToken: string): Promise<string>;
   registerUser(user: RegisterUserDto): Promise<User>;
 }

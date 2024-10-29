@@ -5,7 +5,7 @@ import CardBroadcast from "~/components/organisms/card-broadcast";
 import { loader } from "~/routes/panel.broadcast";
 
 export default function BroadcastPage() {
-  const { broadcasts } = useLoaderData<typeof loader>();
+  const { broadcasts, user } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
 
   return (
@@ -20,14 +20,18 @@ export default function BroadcastPage() {
               Lihat pesan broadcast yang dikirimkan oleh atasan
             </Text>
           </Box>
-          <Button
-            style={{ flexShrink: 0 }}
-            leftSection={<IconPlus size="20px" />}
-            onClick={() => navigate("/panel/broadcast/manage")}
-            color="greenBrand"
-          >
-            Buat
-          </Button>
+          {(user?.hasGroups.includes("Korcam") ||
+            user?.hasGroups.includes("Korkel") ||
+            user?.hasGroups.includes("Admin")) && (
+            <Button
+              style={{ flexShrink: 0 }}
+              leftSection={<IconPlus size="20px" />}
+              onClick={() => navigate("/panel/broadcast/manage")}
+              color="greenBrand"
+            >
+              Buat
+            </Button>
+          )}
         </Flex>
       </Paper>
       {broadcasts?.data?.map((item) => {

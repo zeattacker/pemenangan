@@ -55,6 +55,6 @@ export async function getDptById(dptId: number | string, request: Request) {
   return findVoterUC.execute(dptId, request.headers.get("Cookie"));
 }
 
-export async function deleteDpt(dptId: number | string, request: Request) {
+export async function deleteVoter(dptId: number | string, request: Request) {
   return deleteVoterUC.execute(dptId, request.headers.get("Cookie"));
 }

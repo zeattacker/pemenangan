@@ -1,6 +1,7 @@
 import { json, redirect } from "@remix-run/node";
 import { GetCurrentUserUseCase } from "~/application/use-cases/auth/get-current-user.use-case";
 import { LoginUseCase } from "~/application/use-cases/auth/login.use-case";
+import { LogoutUseCase } from "~/application/use-cases/auth/logout.use-case";
 import { TokenExpiredError } from "~/domain/errors/token-expired.error";
 import { ApiAuthRepository } from "~/infra/repositories/api-auth.repo";
 import { RemixSessionRepository } from "~/infra/session/remix-session.repo";
@@ -10,6 +11,7 @@ const API_URL = process.env.REMIX_API_BASE_URL;
 const authRepository = new ApiAuthRepository(API_URL);
 const sessionRepository = new RemixSessionRepository();
 const loginUseCase = new LoginUseCase(authRepository, sessionRepository);
+const logoutUseCase = new LogoutUseCase(sessionRepository);
 const validateUseCase = new GetCurrentUserUseCase(
   sessionRepository,
   authRepository
@@ -49,5 +51,13 @@ export async function validateUser(request: Request) {
     }
     console.error("Failed to get current user:", error);
     return null;
+  }
+}
+
+export async function logout(request: Request) {
+  try {
+    return logoutUseCase.execute(request);
+  } catch (err) {
+    console.log(err);
   }
 }

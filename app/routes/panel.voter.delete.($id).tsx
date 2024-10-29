@@ -4,7 +4,7 @@ import {
   LoaderFunctionArgs,
   redirect,
 } from "@remix-run/node";
-import { deleteDpt, getDptById } from "~/adapter/controllers/voter.server";
+import { deleteVoter, getDptById } from "~/adapter/controllers/voter.server";
 // import { ErrorResponseDto } from "~/infra/dtos/error-response.dto";
 import DeleteItemPage, {
   withDeleteType,
@@ -13,7 +13,7 @@ import DeleteItemPage, {
 export async function action({ request }: ActionFunctionArgs) {
   const { id } = await request.json();
   try {
-    const response = await deleteDpt(id, request);
+    const response = await deleteVoter(id, request);
 
     return json({ success: true });
   } catch (error) {
@@ -41,4 +41,4 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   return json({ item: dpt?.fullName, id: dpt?.id });
 }
 
-export default withDeleteType(DeleteItemPage, "DPT");
+export default withDeleteType(DeleteItemPage, "DPT", "/panel/voter");
