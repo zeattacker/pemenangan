@@ -8,7 +8,6 @@ export async function action({ request }: ActionFunctionArgs) {
   const id = formData.get("voterId")?.toString() || "";
   const isActive = formData.get("isActive")?.toString() == "true" || false;
 
-    console.log(formData);
   try {
     const voter = await updateVoter(id, isActive, request);
     // if ("errors" in dpt!) throw dpt;

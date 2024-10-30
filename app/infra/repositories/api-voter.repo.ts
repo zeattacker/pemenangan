@@ -1,12 +1,12 @@
 import { IVoterRepository } from "~/domain/interfaces/voter-repo.interface";
 import { ManageVoterDto } from "../dtos/manage-voter.dto";
+import { PaginationRequestDTO } from "../dtos/pagination-request.dto";
 
 export class ApiVoterRepository implements IVoterRepository {
   constructor(private apiUrl: string) {}
 
   async createVoter(voter: ManageVoterDto, accessToken: string) {
     try {
-      console.log(voter);
       const response = await fetch(`${this.apiUrl}/voters`, {
         method: "POST",
         headers: {
@@ -16,20 +16,25 @@ export class ApiVoterRepository implements IVoterRepository {
         body: JSON.stringify(voter),
       });
       const data = await response.json();
-      console.log(data);
       return data;
     } catch (err) {
       console.log(err);
     }
   }
 
-  async getVoters(accessToken: string) {
-    const response = await fetch(`${this.apiUrl}/voters`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  async getVoters(
+    accessToken: string,
+    paginationRequest?: PaginationRequestDTO
+  ) {
+    const response = await fetch(
+      `${this.apiUrl}/voters?page=${paginationRequest?.page}&limit=${paginationRequest?.limit}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
     return response.json();
   }
@@ -61,7 +66,6 @@ export class ApiVoterRepository implements IVoterRepository {
     });
 
     const data = await response.json();
-    console.log(data);
 
     return data;
   }

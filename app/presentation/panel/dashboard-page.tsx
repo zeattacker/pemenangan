@@ -254,7 +254,7 @@ export default function DashboardPage() {
       {user?.isAdmin && (
         <>
           {/* Kandidat */}
-          <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+          {/* <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
             <Flex gap="md" align="center" direction="row">
               <Flex
                 align="center"
@@ -282,7 +282,7 @@ export default function DashboardPage() {
                 stroke={1.5}
               />
             </Flex>
-          </Paper>
+          </Paper> */}
           {/* TPS */}
           <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
             <Flex

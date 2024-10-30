@@ -27,12 +27,11 @@ export class ApiUserRepository implements IUserRepository {
       body: JSON.stringify(userData),
     });
 
-    console.log(response);
     return response.json();
   }
 
   async getUsers(accessToken: string): Promise<PaginationResponseDto<User[]>> {
-    const response = await fetch(`${this.apiUrl}/users`, {
+    const response = await fetch(`${this.apiUrl}/users?page=1&limit=500`, {
       method: "GET",
       headers: {
         Authorization: `Bearer ${accessToken}`,

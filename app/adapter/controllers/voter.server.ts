@@ -4,6 +4,7 @@ import { FindVoterUseCase } from "~/application/use-cases/voter/find-voter.use-c
 import { GetVoterUseCase } from "~/application/use-cases/voter/get-voter.use-case";
 import { UpdateVoterUseCase } from "~/application/use-cases/voter/update-voter.use-case";
 import { ManageVoterDto } from "~/infra/dtos/manage-voter.dto";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 import { ApiVoterRepository } from "~/infra/repositories/api-voter.repo";
 import { RemixSessionRepository } from "~/infra/session/remix-session.repo";
 
@@ -47,8 +48,11 @@ export async function updateVoter(
   );
 }
 
-export async function getVoters(request: Request) {
-  return getVoterUC.execute(request.headers.get("Cookie")!);
+export async function getVoters(
+  request: Request,
+  paginationRequest?: PaginationRequestDTO
+) {
+  return getVoterUC.execute(request.headers.get("Cookie")!, paginationRequest);
 }
 
 export async function getDptById(dptId: number | string, request: Request) {

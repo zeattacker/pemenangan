@@ -2,7 +2,6 @@ import { Box, Button, Flex, Paper, Text } from "@mantine/core";
 import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 // import { getDptLoader } from "~/application/dpt";
 import { IconPlus } from "@tabler/icons-react";
-import { useState } from "react";
 import CardVoter from "~/components/organisms/card-voter";
 import { Voter } from "~/domain";
 import { loader } from "~/routes/panel.voter";
@@ -10,7 +9,8 @@ import { loader } from "~/routes/panel.voter";
 export default function VoterPage() {
   const { voters } = useLoaderData<typeof loader>();
   const navigate = useNavigate();
-  const [activeDpt, setActiveDpt] = useState(null);
+
+  console.log(voters);
 
   return (
     <Flex direction="column" gap="sm">

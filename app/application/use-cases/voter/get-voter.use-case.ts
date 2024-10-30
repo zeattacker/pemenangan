@@ -3,6 +3,7 @@ import {
   IVoterRepository,
 } from "~/domain/interfaces/voter-repo.interface";
 import { ISessionRepository } from "~/domain/interfaces/session-repo.interface";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 
 export class GetVoterUseCase {
   constructor(
@@ -10,7 +11,10 @@ export class GetVoterUseCase {
     private sessionRepository: ISessionRepository
   ) {}
 
-  async execute(cookieHeader?: string | null) {
+  async execute(
+    cookieHeader?: string | null,
+    paginationRequest?: PaginationRequestDTO
+  ) {
     const accessToken = await this.sessionRepository.getAccessToken(
       cookieHeader
     );
@@ -18,6 +22,6 @@ export class GetVoterUseCase {
     if (!accessToken) {
       return null;
     }
-    return this.voterRepository.getVoters(accessToken);
+    return this.voterRepository.getVoters(accessToken, paginationRequest);
   }
 }

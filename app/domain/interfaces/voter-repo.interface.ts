@@ -2,9 +2,13 @@ import { ManageVoterDto } from "~/infra/dtos/manage-voter.dto";
 import { ObjectResponse } from "~/infra/dtos/object-response.dto";
 import { PaginationResponseDto } from "~/infra/dtos/pagination-response.dto";
 import { Voter } from "../entities";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 
 export interface IVoterRepository {
-  getVoters(accessToken: string): Promise<PaginationResponseDto<Voter[]>>;
+  getVoters(
+    accessToken: string,
+    paginationRequest?: PaginationRequestDTO
+  ): Promise<PaginationResponseDto<Voter[]>>;
   getVoterById(
     voterId: string | number,
     accessToken: string

@@ -39,9 +39,7 @@ export async function manageUser(formData: FormData, request: Request) {
   const username = formData.get("username")?.toString() || "";
   const fullName = formData.get("fullname")?.toString() || "";
   const districtId = formData.get("districtId")?.toString() || "";
-  const email = formData.get("email")?.toString() || "";
   const group = formData.get("group")?.toString() || "";
-  const neighborhoodId = formData.get("neighborhoodId")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
   const phoneNumber = formData.get("phoneNumber")?.toString() || "";
   const villageId = formData.get("villageId")?.toString() || "";
@@ -52,9 +50,7 @@ export async function manageUser(formData: FormData, request: Request) {
     username,
     fullName,
     districtId: +districtId,
-    email,
     group,
-    neighborhoodId: +neighborhoodId,
     password,
     phoneNumber: phoneNumber,
     villageId: +villageId,
@@ -63,7 +59,6 @@ export async function manageUser(formData: FormData, request: Request) {
   };
 
   if (userData.votingStationId == 0) delete userData.votingStationId;
-  if (userData.neighborhoodId == 0) delete userData.neighborhoodId;
   if (userData.villageId == 0) delete userData.villageId;
 
   if (id == "") {

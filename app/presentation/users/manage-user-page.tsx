@@ -49,6 +49,9 @@ export default function ManageUserPage() {
     group = "Relawan";
   }
 
+  // console.log(user ? user.id : "a", activeUser);
+  // return <></>;
+
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
@@ -57,7 +60,6 @@ export default function ManageUserPage() {
       fullname: user?.userExtend ? user?.userExtend?.fullName : "",
       phoneNumber: user?.userExtend ? user?.userExtend?.phoneNumber : "",
       password: "",
-      email: user ? user.email : "",
       districtId: user?.district
         ? user.district.id.toString()
         : activeUser?.isAdmin
@@ -66,6 +68,8 @@ export default function ManageUserPage() {
       villageId: user?.village
         ? user.village.id.toString()
         : activeUser?.isAdmin
+        ? ""
+        : activeUser?.hasGroups.includes("Korcam")
         ? ""
         : activeUser?.village.id.toString(),
       neighborhoodId: user?.neighborhood ? user.neighborhood.id.toString() : "",
@@ -124,14 +128,6 @@ export default function ManageUserPage() {
             />
             <TextInput
               w="100%"
-              label="Username"
-              placeholder="Cth: username"
-              radius="xl"
-              key={form.key("username")}
-              {...form.getInputProps("username")}
-            />
-            <TextInput
-              w="100%"
               label="Nama Lengkap"
               placeholder="Cth: Wasis Sapto"
               radius="xl"
@@ -141,11 +137,11 @@ export default function ManageUserPage() {
             <Flex gap="sm">
               <TextInput
                 w="100%"
-                label="Email"
-                placeholder="Cth: wasis@gmail.com"
+                label="Username"
+                placeholder="Cth: username"
                 radius="xl"
-                key={form.key("email")}
-                {...form.getInputProps("email")}
+                key={form.key("username")}
+                {...form.getInputProps("username")}
               />
               <TextInput
                 w="100%"

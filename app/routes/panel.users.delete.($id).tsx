@@ -38,13 +38,11 @@ export async function loader({ request, params }: LoaderFunctionArgs) {
   ) {
     return redirect("/panel/dashboard");
   }
-  
+
   const id = params.id;
   let user = null;
-  console.log(id);
   if (id) {
     user = (await getUserById(id, request))?.data;
-    console.log(user);
   }
 
   if (user == undefined) {

@@ -61,8 +61,6 @@ export default function ViewVoterPage() {
     }
   }, [actionData, navigate]);
 
-  console.log(voter);
-
   return (
     <Drawer.Root
       opened={isOpen}

@@ -21,9 +21,9 @@ export default function ProfilePage() {
   const form = useForm({
     initialValues: {
       email: user?.email || "",
-      phone: user?.userExtend.phoneNumber || "",
-      nik: user?.userExtend.nik || "",
-      fullName: user?.userExtend.fullName || "",
+      phone: user?.userExtend?.phoneNumber || "",
+      nik: user?.userExtend?.nik || "",
+      fullName: user?.userExtend?.fullName || "",
       username: user?.username || "",
       group: user?.hasGroups[0] || "",
     },
@@ -46,13 +46,13 @@ export default function ProfilePage() {
             bg="cyan.6"
             radius="100%"
             size="xl"
-            name={user?.userExtend.fullName}
+            name={user?.userExtend?.fullName || user?.username}
           />
           <Text size="xl" fw="bold">
-            {user?.userExtend.fullName}
+            {user?.userExtend?.fullName || user?.username}
           </Text>
           <Text size="sm" c="dimmed">
-            {user?.hasGroups[0]}
+            {user?.hasGroups[0] || user?.isAdmin ? "Superadmin" : "-"}
           </Text>
 
           <Button
@@ -76,6 +76,7 @@ export default function ProfilePage() {
             label="Nama Lengkap"
             placeholder="Cth: Wasis Sapto"
             key={form.key("fullName")}
+            disabled={user?.isAdmin}
             {...form.getInputProps("fullName")}
           />
           <Group grow>
@@ -85,6 +86,7 @@ export default function ProfilePage() {
               placeholder="Cth: wasis@gmail.com"
               leftSection={<IconAt size={14} />}
               key={form.key("email")}
+              disabled={user?.isAdmin}
               {...form.getInputProps("email")}
             />
             <TextInput
@@ -92,6 +94,7 @@ export default function ProfilePage() {
               leftSection="+62"
               leftSectionWidth="50px"
               type="number"
+              disabled={user?.isAdmin}
               placeholder="Cth: 82682830923"
               key={form.key("phone")}
               {...form.getInputProps("phone")}
@@ -101,6 +104,7 @@ export default function ProfilePage() {
             label="NIK"
             type="number"
             placeholder="Cth: 3578127309203003"
+            disabled={user?.isAdmin}
           />
           <TextInput
             label="Username"
@@ -113,8 +117,9 @@ export default function ProfilePage() {
             label="Password"
             description="Isi jika ingin mengganti password"
             placeholder="Cth: ******"
+            disabled={user?.isAdmin}
           />
-          <Button mt="sm" radius="md">
+          <Button mt="sm" radius="md" disabled={user?.isAdmin}>
             Update Profile
           </Button>
         </Flex>
