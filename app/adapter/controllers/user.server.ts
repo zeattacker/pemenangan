@@ -83,11 +83,9 @@ export async function registerUser(formData: FormData) {
   const fullName = formData.get("fullName")?.toString() || "";
   const username = formData.get("username")?.toString() || "";
   const phoneNumber = formData.get("phoneNumber")?.toString() || "";
-  const email = formData.get("email")?.toString() || "";
   const group = formData.get("group")?.toString() || "";
   const districtId = formData.get("districtId")?.toString() || "";
   const villageId = formData.get("villageId")?.toString() || "";
-  const neighborhoodId = formData.get("neighborhoodId")?.toString() || "";
   const votingStationId = formData.get("votingStationId")?.toString() || "";
   const password = formData.get("password")?.toString() || "";
 
@@ -95,11 +93,9 @@ export async function registerUser(formData: FormData) {
     fullName,
     username,
     phoneNumber: phoneNumber,
-    email,
     group,
     districtId: +districtId,
     villageId: +villageId,
-    neighborhoodId: +neighborhoodId,
     votingStationId: +votingStationId,
     password,
   };

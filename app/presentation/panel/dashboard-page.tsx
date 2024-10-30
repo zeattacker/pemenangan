@@ -5,7 +5,6 @@ import {
   IconBuilding,
   IconBuildingEstate,
   IconChevronRight,
-  IconHome,
   IconPackage,
   IconUserCheck,
   IconUserEdit,
@@ -22,7 +21,8 @@ export default function DashboardPage() {
       <SimpleGrid cols={2}>
         {(user?.hasGroups.includes("Korcam") ||
           user?.hasGroups.includes("Korkel") ||
-          user?.hasGroups.includes("Admin")) && (
+          user?.hasGroups.includes("Admin") ||
+          user?.isAdmin) && (
           <>
             <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
               <Flex
@@ -389,7 +389,7 @@ export default function DashboardPage() {
             </Flex>
           </Paper>
           {/* Lingkungan */}
-          <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+          {/* <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
             <Flex
               gap="md"
               align="center"
@@ -423,7 +423,7 @@ export default function DashboardPage() {
                 stroke={1.5}
               />
             </Flex>
-          </Paper>
+          </Paper> */}
         </>
       )}
     </Flex>

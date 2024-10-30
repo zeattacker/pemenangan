@@ -179,7 +179,6 @@ export default function ManageUserPage() {
                   form.setValues({
                     districtId: value!,
                     villageId: "",
-                    neighborhoodId: "",
                     tpsId: "",
                   })
                 }
@@ -206,21 +205,6 @@ export default function ManageUserPage() {
               )}
             </Flex>
             <Flex gap="sm">
-              {["Relawan", "Saksi"].includes(form.getValues().group) && (
-                <AreaSelect
-                  w="100%"
-                  name="neighborhood"
-                  label="Lingkungan"
-                  placeholder="Pilih Lingkungan"
-                  area="neighborhoods"
-                  value={form.getValues().neighborhoodId}
-                  queryId={form.getValues().villageId || ""}
-                  key={form.key("neighborhoodId")}
-                  onChange={(value) =>
-                    form.setFieldValue("neighborhoodId", value!)
-                  }
-                />
-              )}
               {form.getValues().group == "Saksi" && (
                 <AreaSelect
                   w="100%"

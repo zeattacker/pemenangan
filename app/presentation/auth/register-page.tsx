@@ -40,11 +40,9 @@ export default function RegisterPage() {
       fullName: "",
       phoneNumber: "",
       username: "",
-      email: "",
       group: "Relawan",
       districtId: "",
       villageId: "",
-      neighborhoodId: "",
       tpsId: "",
     },
     validate: {
@@ -101,13 +99,6 @@ export default function RegisterPage() {
                   radius="xl"
                   key={form.key("phoneNumber")}
                   {...form.getInputProps("phoneNumber")}
-                />
-                <TextInput
-                  label="Email"
-                  placeholder="Cth: wasissapto"
-                  radius="xl"
-                  key={form.key("email")}
-                  {...form.getInputProps("email")}
                 />
                 <TextInput
                   label="Username"
@@ -182,34 +173,22 @@ export default function RegisterPage() {
                     form.setFieldValue("villageId", value!);
                   }}
                 />
-                <AreaSelect
-                  name="neighborhood"
-                  label="Lingkungan"
-                  placeholder="Pilih Lingkungan"
-                  area="neighborhoods"
-                  value={form.getValues().neighborhoodId}
-                  queryId={form.getValues().villageId}
-                  key={form.key("neighborhoodId")}
-                  onChange={(value) =>
-                    form.setValues({
-                      neighborhoodId: value!,
-                    })
-                  }
-                />
-                <AreaSelect
-                  name="tps"
-                  label="TPS"
-                  placeholder="Pilih TPS"
-                  area="tps"
-                  value={form.getValues().tpsId}
-                  queryId={form.getValues().villageId}
-                  key={form.key("tpsId")}
-                  onChange={(value) =>
-                    form.setValues({
-                      tpsId: value!,
-                    })
-                  }
-                />
+                {form.getValues().group == "Saksi" && (
+                  <AreaSelect
+                    name="tps"
+                    label="TPS"
+                    placeholder="Pilih TPS"
+                    area="tps"
+                    value={form.getValues().tpsId}
+                    queryId={form.getValues().villageId}
+                    key={form.key("tpsId")}
+                    onChange={(value) =>
+                      form.setValues({
+                        tpsId: value!,
+                      })
+                    }
+                  />
+                )}
               </Flex>
             </Stepper.Step>
           </Stepper>
