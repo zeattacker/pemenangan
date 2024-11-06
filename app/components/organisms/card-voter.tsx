@@ -33,7 +33,7 @@ export default function CardVoter({
   return (
     <Paper p="md" radius="md">
       <Flex direction="row" justify="space-between" align="center">
-        <Text fw={500}>{voter.dpt.name}</Text>
+        <Text fw={500}>{voter?.dpt?.name}</Text>
 
         <Menu shadow="md">
           <Menu.Target>
@@ -70,17 +70,17 @@ export default function CardVoter({
         <ItemCardDpt
           icon={<IconBuildings size="16px" />}
           title="TPS"
-          content={voter.dpt.votingStation.name}
+          content={voter?.dpt?.votingStation?.name}
         />
         <ItemCardDpt
           icon={<IconPencilBolt size="16px" />}
           title="RT/RW"
-          content={`${voter.dpt.rt}/${voter.dpt.rw}`}
+          content={`${voter?.dpt?.rt}/${voter?.dpt?.rw}`}
         />
         <ItemCardDpt
           icon={<IconIdBadge size="16px" />}
           title="Kelurahan"
-          content={voter.dpt.village.name}
+          content={voter?.dpt?.village?.name}
         />
         <ItemCardDpt
           icon={<IconCheck size="16px" />}

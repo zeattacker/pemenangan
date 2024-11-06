@@ -3,9 +3,13 @@ import type { User } from "../entities/user.entity";
 import { PaginationResponseDto } from "~/infra/dtos/pagination-response.dto";
 import { ObjectResponse } from "~/infra/dtos/object-response.dto";
 import { ManageUserDto } from "~/infra/dtos/manage-user.dto";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 
 export interface IUserRepository {
-  getUsers(accessToken: string): Promise<PaginationResponseDto<User[]>>;
+  getUsers(
+    accessToken: string,
+    paginationRequest?: PaginationRequestDTO
+  ): Promise<PaginationResponseDto<User[]>>;
   getUserById(
     userID: string | number,
     accessToken: string

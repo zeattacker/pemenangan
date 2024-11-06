@@ -1,5 +1,6 @@
 import { ISessionRepository } from "~/domain/interfaces/session-repo.interface";
 import { IUserRepository } from "~/domain/interfaces/user-repo.interface";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 
 export class GetUserDataUseCase {
   constructor(
@@ -7,7 +8,10 @@ export class GetUserDataUseCase {
     private sessionRepository: ISessionRepository
   ) {}
 
-  async getUsers(cookieHeader?: string | null) {
+  async getUsers(
+    paginationRequest?: PaginationRequestDTO,
+    cookieHeader?: string | null
+  ) {
     const accessToken = await this.sessionRepository.getAccessToken(
       cookieHeader
     );
@@ -15,7 +19,7 @@ export class GetUserDataUseCase {
     if (!accessToken) {
       return null;
     }
-    return this.userRepository.getUsers(accessToken);
+    return this.userRepository.getUsers(accessToken, paginationRequest);
   }
 
   async getUserById(userId: number | string, cookieHeader?: string | null) {

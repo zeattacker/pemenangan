@@ -4,6 +4,7 @@ import {
   json,
   Outlet,
   redirect,
+  useLoaderData,
   useLocation,
   useNavigate,
 } from "@remix-run/react";
@@ -13,11 +14,13 @@ import {
   IconMessage,
   IconUserCircle,
   IconUserEdit,
+  IconWriting,
 } from "@tabler/icons-react";
 import { validateUser } from "~/adapter/controllers/auth.server";
+import { User } from "~/domain/entities/user.entity";
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const user = await validateUser(request);
+  const user = (await validateUser(request)) as User | null;
 
   if (!user) {
     return redirect("/");
@@ -28,6 +31,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
 export default function PanelLayout() {
   const navigate = useNavigate();
   const location = useLocation();
+  const { user } = useLoaderData<typeof loader>();
 
   return (
     <Box mih="100vh" p={0}>
@@ -73,19 +77,42 @@ export default function PanelLayout() {
                 Dashboard
               </Text>
             </Grid.Col>
-            <Grid.Col
-              span="auto"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/panel/voter")}
-            >
-              <IconUserEdit
-                size="26px"
-                color={location.pathname == "/panel/voter" ? "green" : "gray"}
-              />
-              <Text size="xs" c="gray.7">
-                DPT
-              </Text>
-            </Grid.Col>
+            {(["Relawan", "Korcam", "Korkel", "Admin"].includes(
+              user?.hasGroups[0]
+            ) ||
+              user?.isAdmin) && (
+              <Grid.Col
+                span="auto"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/panel/voter")}
+              >
+                <IconUserEdit
+                  size="26px"
+                  color={location.pathname == "/panel/voter" ? "green" : "gray"}
+                />
+                <Text size="xs" c="gray.7">
+                  DPT
+                </Text>
+              </Grid.Col>
+            )}
+            {(["Saksi", "Korcam", "Korkel", "Admin"].includes(
+              user?.hasGroups[0]
+            ) ||
+              user?.isAdmin) && (
+              <Grid.Col
+                span="auto"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/panel/recap")}
+              >
+                <IconWriting
+                  size="26px"
+                  color={location.pathname == "/panel/recap" ? "green" : "gray"}
+                />
+                <Text size="xs" c="gray.7">
+                  Rekap
+                </Text>
+              </Grid.Col>
+            )}
             <Grid.Col
               span="auto"
               style={{ cursor: "pointer" }}

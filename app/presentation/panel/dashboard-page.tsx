@@ -254,8 +254,13 @@ export default function DashboardPage() {
       {user?.isAdmin && (
         <>
           {/* Kandidat */}
-          {/* <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-            <Flex gap="md" align="center" direction="row">
+          <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+            <Flex
+              gap="md"
+              align="center"
+              direction="row"
+              onClick={() => navigate("/panel/candidate")}
+            >
               <Flex
                 align="center"
                 justify="center"
@@ -282,7 +287,7 @@ export default function DashboardPage() {
                 stroke={1.5}
               />
             </Flex>
-          </Paper> */}
+          </Paper>
           {/* TPS */}
           <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
             <Flex

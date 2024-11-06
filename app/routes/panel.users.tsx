@@ -1,4 +1,9 @@
-import { json, LoaderFunctionArgs, MetaFunction, redirect } from "@remix-run/node";
+import {
+  json,
+  LoaderFunctionArgs,
+  MetaFunction,
+  redirect,
+} from "@remix-run/node";
 import { validateUser } from "~/adapter/controllers/auth.server";
 import { getUsers } from "~/adapter/controllers/user.server";
 import { User } from "~/domain/entities/user.entity";
@@ -19,7 +24,14 @@ export const meta: MetaFunction = () => {
 };
 
 export async function loader({ request }: LoaderFunctionArgs) {
-  const users = await getUsers(request); //1 for mojokerto
+  const { searchParams } = new URL(request.url);
+  const users = await getUsers(request, {
+    page: 1,
+    limit: searchParams.get("limit") || 10,
+    search: searchParams.get("search") || "",
+    status: searchParams.get("status") || "",
+  });
+
   const user = (await validateUser(request)) as User | null;
   if (
     user &&

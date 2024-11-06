@@ -5,6 +5,7 @@ import { DeleteUserUseCase } from "~/application/use-cases/users/delete-user.use
 import { FindUserUseCase } from "~/application/use-cases/users/find-user.use-case";
 import { UpdateUserUseCase } from "~/application/use-cases/users/update-user.use-case";
 import { ManageUserDto } from "~/infra/dtos/manage-user.dto";
+import { PaginationRequestDTO } from "~/infra/dtos/pagination-request.dto";
 import { RegisterUserDto } from "~/infra/dtos/register-user.dto";
 import { ApiUserRepository } from "~/infra/repositories/api-user.repo";
 import { RemixSessionRepository } from "~/infra/session/remix-session.repo";
@@ -26,8 +27,14 @@ const updateUserUseCase = new UpdateUserUseCase(
 const deleteUserUC = new DeleteUserUseCase(userRepository, sessionRepository);
 const findUserUC = new FindUserUseCase(userRepository, sessionRepository);
 
-export async function getUsers(request: Request) {
-  return getUserDataUseCase.getUsers(request.headers.get("Cookie"));
+export async function getUsers(
+  request: Request,
+  paginationRequest?: PaginationRequestDTO
+) {
+  return getUserDataUseCase.getUsers(
+    paginationRequest,
+    request.headers.get("Cookie")
+  );
 }
 
 export async function getUserById(userId: number | string, request: Request) {

@@ -1,9 +1,9 @@
-import type { IUserRepository } from "~/domain/interfaces/user-repo.interface";
 import type { User } from "~/domain/entities/user.entity";
-import { TokenExpiredError } from "~/domain/errors/token-expired.error";
-import { RegisterUserDto } from "../dtos/register-user.dto";
-import { PaginationResponseDto } from "../dtos/pagination-response.dto";
+import type { IUserRepository } from "~/domain/interfaces/user-repo.interface";
 import { ManageUserDto } from "../dtos/manage-user.dto";
+import { PaginationRequestDTO } from "../dtos/pagination-request.dto";
+import { PaginationResponseDto } from "../dtos/pagination-response.dto";
+import { RegisterUserDto } from "../dtos/register-user.dto";
 
 export class ApiUserRepository implements IUserRepository {
   constructor(private apiUrl: string) {}
@@ -30,15 +30,33 @@ export class ApiUserRepository implements IUserRepository {
     return response.json();
   }
 
-  async getUsers(accessToken: string): Promise<PaginationResponseDto<User[]>> {
-    const response = await fetch(`${this.apiUrl}/users?page=1&limit=500`, {
-      method: "GET",
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
-    });
+  async getUsers(
+    accessToken: string,
+    paginationRequest?: PaginationRequestDTO
+  ): Promise<PaginationResponseDto<User[]>> {
+    const response = await fetch(
+      `${this.apiUrl}/users?page=${paginationRequest?.page || ""}&limit=${
+        paginationRequest?.limit || ""
+      }&search=${paginationRequest?.search || ""}&isActive=${
+        paginationRequest?.status || ""
+      }`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
 
-    return response.json();
+    const data = await response.json();
+
+    console.log(`${this.apiUrl}/users?page=${paginationRequest?.page || ""}&limit=${
+        paginationRequest?.limit || ""
+      }&search=${paginationRequest?.search || ""}&isActive=${
+        paginationRequest?.status || ""
+      }`);
+
+    return data;
   }
 
   async updateUser(

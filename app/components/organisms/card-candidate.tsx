@@ -7,15 +7,25 @@ export default function CardCandidate({ candidate }: { candidate: Candidate }) {
   const navigate = useNavigate();
   return (
     <Paper p="md" radius="md">
-      <Flex direction="row" gap="md" align="center">
-        <Flex direction="column" w="100%">
-          <Text size="xs" c="gray.7">
-            Nama
-          </Text>
-          <Text fw={500} size="sm">
-            {candidate?.name}
-          </Text>
-        </Flex>
+      <Flex direction="column" gap="md" align="center">
+        <Group grow w="100%">
+          <Flex direction="column" w="100%">
+            <Text size="xs" c="gray.7">
+              Nama Calon
+            </Text>
+            <Text fw={500} size="sm">
+              {candidate?.name}
+            </Text>
+          </Flex>
+          <Flex direction="column" w="100%">
+            <Text size="xs" c="gray.7">
+              Nama Wakil Calon
+            </Text>
+            <Text fw={500} size="sm">
+              {candidate?.viceName}
+            </Text>
+          </Flex>
+        </Group>
         <Group grow w="100%">
           <Button
             leftSection={<IconPencil size="16px" />}
