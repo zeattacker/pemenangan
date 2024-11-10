@@ -26,8 +26,11 @@ export class ApiVoterRepository implements IVoterRepository {
     accessToken: string,
     paginationRequest?: PaginationRequestDTO
   ) {
+    console.log(
+      `${this.apiUrl}/voters?page=${paginationRequest?.page}&limit=${paginationRequest?.limit}&districtId=${paginationRequest?.districtId}&villageId=${paginationRequest?.villageId}&search=${paginationRequest?.search}`
+    );
     const response = await fetch(
-      `${this.apiUrl}/voters?page=${paginationRequest?.page}&limit=${paginationRequest?.limit}`,
+      `${this.apiUrl}/voters?page=${paginationRequest?.page}&limit=${paginationRequest?.limit}&districtId=${paginationRequest?.districtId}&villageId=${paginationRequest?.villageId}&search=${paginationRequest?.search}&isActive=${paginationRequest?.status}`,
       {
         method: "GET",
         headers: {

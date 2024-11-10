@@ -37,7 +37,9 @@ export default function DashboardPage() {
                     Total Saksi
                   </Text>
                   <Text size="40px" fw="bolder">
-                    {dashboardTop?.data?.saksiCount || 0}
+                    {Intl.NumberFormat("en", { notation: "compact" }).format(
+                      dashboardTop?.data?.saksiCount || 0
+                    )}
                   </Text>
                 </Flex>
                 <Flex
@@ -68,7 +70,9 @@ export default function DashboardPage() {
                     Saksi Terdaftar
                   </Text>
                   <Text size="40px" fw="bolder">
-                    {dashboardTop?.data?.saksiRegisteredCount || 0}
+                    {Intl.NumberFormat("en", { notation: "compact" }).format(
+                      dashboardTop?.data?.saksiRegisteredCount || 0
+                    )}
                   </Text>
                 </Flex>
                 <Flex
@@ -99,7 +103,9 @@ export default function DashboardPage() {
                     Total Relawan
                   </Text>
                   <Text size="40px" fw="bolder">
-                    {dashboardTop?.data?.relawanCount || 0}
+                    {Intl.NumberFormat("en", { notation: "compact" }).format(
+                      dashboardTop?.data?.relawanCount || 0
+                    )}
                   </Text>
                 </Flex>
                 <Flex
@@ -130,7 +136,9 @@ export default function DashboardPage() {
                     Relawan Terdaftar
                   </Text>
                   <Text size="40px" fw="bolder">
-                    {dashboardTop?.data?.relawanRegisteredCount}
+                    {Intl.NumberFormat("en", { notation: "compact" }).format(
+                      dashboardTop?.data?.relawanRegisteredCount || 0
+                    )}
                   </Text>
                 </Flex>
                 <Flex
@@ -163,7 +171,9 @@ export default function DashboardPage() {
                 Total DPT
               </Text>
               <Text size="40px" fw="bolder">
-                {dashboardTop?.data?.voterCount || 0}
+                {Intl.NumberFormat("en", { notation: "compact" }).format(
+                  dashboardTop?.data?.voterCount || 0
+                )}
               </Text>
             </Flex>
             <Flex
@@ -194,7 +204,9 @@ export default function DashboardPage() {
                 DPT Terdaftar
               </Text>
               <Text size="40px" fw="bolder">
-                {dashboardTop?.data?.voterRegisterdCount || 0}
+                {Intl.NumberFormat("en", { notation: "compact" }).format(
+                  dashboardTop?.data?.voterRegisterdCount || 0
+                )}
               </Text>
             </Flex>
             <Flex

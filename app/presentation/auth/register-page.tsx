@@ -146,7 +146,6 @@ export default function RegisterPage() {
                     if (value !== form.getValues().districtId) {
                       form.setValues({
                         villageId: "",
-                        neighborhoodId: "",
                         tpsId: "",
                       });
                     }
@@ -164,10 +163,7 @@ export default function RegisterPage() {
                   key={form.key("villageId")}
                   onChange={(value) => {
                     if (value !== form.getValues().villageId) {
-                      form.setValues({
-                        neighborhoodId: "",
-                        tpsId: "",
-                      });
+                      form.setFieldValue("tpsId", value!);
                     }
 
                     form.setFieldValue("villageId", value!);

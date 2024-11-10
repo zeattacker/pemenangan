@@ -1,12 +1,12 @@
 import { MetaFunction } from "@remix-run/node";
-import RecapPage from "~/presentation/recap/recap-page";
+import ReportPage from "~/presentation/report/report-page";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Rekapitulasi | E-Pemenangan" },
+    { title: "Laporan | E-Pemenangan" },
     {
       property: "og:title",
-      content: "Rekapitulasi | E-Pemenangan",
+      content: "Laporan | E-Pemenangan",
     },
     {
       name: "description",
@@ -15,4 +15,4 @@ export const meta: MetaFunction = () => {
   ];
 };
 
-export default RecapPage;
+export default ReportPage;

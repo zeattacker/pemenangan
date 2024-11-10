@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  ComboboxData,
   Flex,
   Group,
   Input,
@@ -18,18 +19,20 @@ import {
 import { IconPlus, IconRefresh, IconSearch } from "@tabler/icons-react";
 import { useDebounce } from "@uidotdev/usehooks";
 import { FormEvent, useEffect, useState } from "react";
+import { AreaSelect } from "~/components/atoms/AreaSelect";
 import CardUser from "~/components/organisms/card-user";
 import { loader } from "~/routes/panel.users";
 
 export default function UserPage() {
   const navigate = useNavigate();
-  const { users } = useLoaderData<typeof loader>();
-  const [search] = useState("");
+  const { users, districts } = useLoaderData<typeof loader>();
   const [searchParams] = useSearchParams();
   const [pagination, setPagination] = useState({
     status: searchParams.get("status") || "",
     search: searchParams.get("search") || "",
     limit: parseInt(searchParams.get("limit") || "10") || 10,
+    districtId: searchParams.get("districtId") || "",
+    villageId: searchParams.get("villageId") || "",
   });
   const debouncedSearchTerm = useDebounce(pagination.search, 300);
 
@@ -124,6 +127,46 @@ export default function UserPage() {
               })
             }
             label="Status"
+          />
+        </Group>
+        <Group grow mt="sm">
+          <Select
+            label="Kecamatan"
+            placeholder="Pilih kecamatan"
+            data={(districts?.data as ComboboxData) || []}
+            searchable
+            key="districtId"
+            name="districtId"
+            value={pagination.districtId}
+            onChange={(value) => {
+              const data = {
+                ...pagination,
+                districtId: value!,
+              };
+              if (value !== pagination.districtId) {
+                data.villageId = "";
+              }
+              setPagination(data);
+            }}
+          />
+          <AreaSelect
+            name="villageId"
+            label="Kelurahan"
+            placeholder="Pilih Kelurahan"
+            area="villages"
+            value={pagination.villageId}
+            queryId={pagination.districtId}
+            key="villageId"
+            onChange={(value) => {
+              const data = {
+                ...pagination,
+                villageId: value!,
+              };
+              if (value !== pagination.villageId) {
+                data.districtId = pagination.districtId;
+              }
+              setPagination(data);
+            }}
           />
         </Group>
       </Paper>

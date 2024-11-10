@@ -5,6 +5,7 @@ import {
   redirect,
 } from "@remix-run/node";
 import { validateUser } from "~/adapter/controllers/auth.server";
+import { getDistricts } from "~/adapter/controllers/district.server";
 import { getUsers } from "~/adapter/controllers/user.server";
 import { User } from "~/domain/entities/user.entity";
 import UserPage from "~/presentation/users/user-page";
@@ -30,6 +31,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
     limit: searchParams.get("limit") || 10,
     search: searchParams.get("search") || "",
     status: searchParams.get("status") || "",
+    villageId: searchParams.get("villageId") || "",
+    districtId: searchParams.get("districtId") || "",
   });
 
   const user = (await validateUser(request)) as User | null;
@@ -39,7 +42,9 @@ export async function loader({ request }: LoaderFunctionArgs) {
   ) {
     return redirect("/panel/dashboard");
   }
-  return json({ users });
+
+  const districts = await getDistricts("1", request, "select");
+  return json({ users, districts });
 }
 
 export default UserPage;

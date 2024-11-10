@@ -12,6 +12,8 @@ import {
   IconBroadcast,
   IconDashboard,
   IconMessage,
+  IconReport,
+  IconReportAnalytics,
   IconUserCircle,
   IconUserEdit,
   IconWriting,
@@ -116,17 +118,19 @@ export default function PanelLayout() {
             <Grid.Col
               span="auto"
               style={{ cursor: "pointer" }}
-              onClick={() => navigate("/panel/message")}
+              onClick={() => navigate("/panel/report/data")}
             >
-              <IconMessage
+              <IconReportAnalytics
                 size="26px"
-                color={location.pathname == "/panel/message" ? "green" : "gray"}
+                color={
+                  location.pathname == "/panel/report/data" ? "green" : "gray"
+                }
               />
               <Text size="xs" c="gray.7">
-                Pesan
+                Laporan
               </Text>
             </Grid.Col>
-            <Grid.Col
+            {/* <Grid.Col
               span="auto"
               style={{ cursor: "pointer" }}
               onClick={() => navigate("/panel/broadcast")}
@@ -140,7 +144,7 @@ export default function PanelLayout() {
               <Text size="xs" c="gray.7">
                 Broadcast
               </Text>
-            </Grid.Col>
+            </Grid.Col> */}
             <Grid.Col
               span="auto"
               style={{ cursor: "pointer" }}

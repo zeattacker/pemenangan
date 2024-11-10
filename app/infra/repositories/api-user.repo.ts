@@ -36,9 +36,11 @@ export class ApiUserRepository implements IUserRepository {
   ): Promise<PaginationResponseDto<User[]>> {
     const response = await fetch(
       `${this.apiUrl}/users?page=${paginationRequest?.page || ""}&limit=${
-        paginationRequest?.limit || ""
+        paginationRequest?.limit
       }&search=${paginationRequest?.search || ""}&isActive=${
-        paginationRequest?.status || ""
+        paginationRequest?.status
+      }&villageId=${paginationRequest?.villageId}&districtId=${
+        paginationRequest?.districtId
       }`,
       {
         method: "GET",
@@ -49,12 +51,6 @@ export class ApiUserRepository implements IUserRepository {
     );
 
     const data = await response.json();
-
-    console.log(`${this.apiUrl}/users?page=${paginationRequest?.page || ""}&limit=${
-        paginationRequest?.limit || ""
-      }&search=${paginationRequest?.search || ""}&isActive=${
-        paginationRequest?.status || ""
-      }`);
 
     return data;
   }

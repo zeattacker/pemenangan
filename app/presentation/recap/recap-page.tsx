@@ -1,9 +1,10 @@
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
-import { Outlet } from "@remix-run/react";
+import { Outlet, useNavigate } from "@remix-run/react";
 import { IconPlus } from "@tabler/icons-react";
 import CardRecap from "~/components/organisms/card-recap";
 
 export default function RecapPage() {
+  const navigate = useNavigate();
   return (
     <Flex direction="column" gap="sm">
       <Paper p="sm" radius="md">
@@ -20,7 +21,7 @@ export default function RecapPage() {
           <Button
             style={{ flexShrink: 0 }}
             leftSection={<IconPlus size="20px" />}
-            // onClick={() => navigate("/panel/tps/manage")}
+            onClick={() => navigate("/panel/recap/manage")}
             color="greenBrand"
           >
             Tambah

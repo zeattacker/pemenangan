@@ -48,8 +48,25 @@ export async function manageCandidate(formData: FormData, request: Request) {
     );
 }
 
-export async function getCandidates(request: Request) {
-  return getCandidateUC.execute(request.headers.get("Cookie")!);
+export async function getCandidates(request: Request, type: string = "normal") {
+  const candidates = await getCandidateUC.execute(
+    request.headers.get("Cookie")!
+  );
+
+  if (type == "select") {
+    const data = candidates?.data.map((district) => {
+      return {
+        value: district.id.toString(),
+        label: district.name,
+      };
+    });
+    return {
+      data,
+      meta: candidates?.meta,
+    };
+  } else {
+    return candidates;
+  }
 }
 
 // export async function getDptById(dptId: number | string, request: Request) {
