@@ -9,5 +9,5 @@ export interface IAuthRepository {
   refreshToken(
     refreshToken: string
   ): Promise<{ accessToken: string; refreshToken: string }>;
-  validate(accessToken: string): Promise<ObjectResponse<User>>;
+  validate(accessToken: string): Promise<User>;
 }

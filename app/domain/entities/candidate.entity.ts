@@ -3,4 +3,5 @@ export interface Candidate {
   name: string;
   viceName: string;
   pemiluSessionid: number;
+  validVote: number;
 }

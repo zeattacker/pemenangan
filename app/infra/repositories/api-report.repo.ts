@@ -12,4 +12,13 @@ export class ApiReportRepository implements IReportRepository {
     });
     return response.json();
   }
+
+  async getReportRecap(accessToken: string) {
+    const response = await fetch(`${this.apiBaseUrl}/reports/recapitulation`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
+    return response.json();
+  }
 }

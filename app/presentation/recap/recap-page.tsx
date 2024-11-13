@@ -1,10 +1,13 @@
 import { Box, Button, Flex, Paper, Text } from "@mantine/core";
-import { Outlet, useNavigate } from "@remix-run/react";
+import { Outlet, useLoaderData, useNavigate } from "@remix-run/react";
 import { IconPlus } from "@tabler/icons-react";
 import CardRecap from "~/components/organisms/card-recap";
+import { loader } from "~/routes/panel.recap";
 
 export default function RecapPage() {
   const navigate = useNavigate();
+  const { recaps } = useLoaderData<typeof loader>();
+
   return (
     <Flex direction="column" gap="sm">
       <Paper p="sm" radius="md">
@@ -28,8 +31,8 @@ export default function RecapPage() {
           </Button>
         </Flex>
       </Paper>
-      {[1, 2, 3].map((item) => {
-        return <CardRecap key={item} />;
+      {recaps?.map((item) => {
+        return <CardRecap key={item.id} recap={item} />;
       })}
       <Outlet />
     </Flex>

@@ -1,4 +1,5 @@
-import { MetaFunction } from "@remix-run/node";
+import { json, LoaderFunctionArgs, MetaFunction } from "@remix-run/node";
+import { getRecaps } from "~/adapter/controllers/recap.server";
 import RecapPage from "~/presentation/recap/recap-page";
 
 export const meta: MetaFunction = () => {
@@ -14,5 +15,13 @@ export const meta: MetaFunction = () => {
     },
   ];
 };
+
+export async function loader({ request }: LoaderFunctionArgs) {
+  const recaps = await getRecaps(request, {
+    page: 1,
+    limit: 10,
+  });
+  return json({ recaps });
+}
 
 export default RecapPage;

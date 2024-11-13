@@ -1,7 +1,7 @@
 interface ReportVoterDetail {
   id: number;
   name: string;
-  voterCount: number;
+  voterCount: string;
 }
 
 export interface ReportVoter {

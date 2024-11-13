@@ -20,12 +20,27 @@ const validateUseCase = new GetCurrentUserUseCase(
 export async function handleLogin(username: string, password: string) {
   try {
     const { cookieHeader } = await loginUseCase.execute(username, password);
-
-    return redirect("/panel/dashboard", {
-      headers: {
-        "Set-Cookie": cookieHeader,
-      },
-    });
+    const user = await validateUseCase.execute(cookieHeader);
+    
+    if (user?.hasGroups.includes("Relawan")) {
+      return redirect("/panel/voter", {
+        headers: {
+          "Set-Cookie": cookieHeader,
+        },
+      });
+    } else if (user?.hasGroups.includes("Saksi")) {
+      return redirect("/panel/recap", {
+        headers: {
+          "Set-Cookie": cookieHeader,
+        },
+      });
+    } else {
+      return redirect("/panel/dashboard", {
+        headers: {
+          "Set-Cookie": cookieHeader,
+        },
+      });
+    }
   } catch (error) {
     if (error instanceof Error) {
       return json({ error: error.message }, { status: 400 });

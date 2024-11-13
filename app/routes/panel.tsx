@@ -64,21 +64,24 @@ export default function PanelLayout() {
           }}
         >
           <Grid w="100%" align="stretch" ta="center">
-            <Grid.Col
-              span="auto"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/panel/dashboard")}
-            >
-              <IconDashboard
-                size="26px"
-                color={
-                  location.pathname == "/panel/dashboard" ? "green" : "gray"
-                }
-              />
-              <Text size="xs" c="gray.7">
-                Dashboard
-              </Text>
-            </Grid.Col>
+            {(!["Saksi", "Relawan"].includes(user?.hasGroups[0]) ||
+              user?.isAdmin) && (
+              <Grid.Col
+                span="auto"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/panel/dashboard")}
+              >
+                <IconDashboard
+                  size="26px"
+                  color={
+                    location.pathname == "/panel/dashboard" ? "green" : "gray"
+                  }
+                />
+                <Text size="xs" c="gray.7">
+                  Dashboard
+                </Text>
+              </Grid.Col>
+            )}
             {(["Relawan", "Korcam", "Korkel", "Admin"].includes(
               user?.hasGroups[0]
             ) ||
@@ -115,21 +118,23 @@ export default function PanelLayout() {
                 </Text>
               </Grid.Col>
             )}
-            <Grid.Col
-              span="auto"
-              style={{ cursor: "pointer" }}
-              onClick={() => navigate("/panel/report/data")}
-            >
-              <IconReportAnalytics
-                size="26px"
-                color={
-                  location.pathname == "/panel/report/data" ? "green" : "gray"
-                }
-              />
-              <Text size="xs" c="gray.7">
-                Laporan
-              </Text>
-            </Grid.Col>
+            {user?.isAdmin && (
+              <Grid.Col
+                span="auto"
+                style={{ cursor: "pointer" }}
+                onClick={() => navigate("/panel/report/data")}
+              >
+                <IconReportAnalytics
+                  size="26px"
+                  color={
+                    location.pathname == "/panel/report/data" ? "green" : "gray"
+                  }
+                />
+                <Text size="xs" c="gray.7">
+                  Laporan
+                </Text>
+              </Grid.Col>
+            )}
             {/* <Grid.Col
               span="auto"
               style={{ cursor: "pointer" }}

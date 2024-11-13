@@ -68,7 +68,6 @@ export default function VoterPage() {
       pathname: "/panel/voter",
       search: `?${params.toString()}`,
     });
-    console.log("called");
   }, [pagination]);
 
   return (

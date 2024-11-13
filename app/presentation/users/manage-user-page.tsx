@@ -48,10 +48,6 @@ export default function ManageUserPage() {
     roles.splice(0, 2);
     group = "Relawan";
   }
-
-  // console.log(user ? user.id : "a", activeUser);
-  // return <></>;
-
   const form = useForm({
     mode: "uncontrolled",
     initialValues: {
