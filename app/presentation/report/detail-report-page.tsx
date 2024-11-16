@@ -43,6 +43,32 @@ export default function DetailReportPage() {
                             </Text>
                           </Flex>
                         </Group>
+                        <Stack ml="md">
+                          {village.votingStations.map((votingStation) => {
+                            return (
+                              <Flex
+                                direction="column"
+                                key={votingStation.id}
+                                gap="sm"
+                              >
+                                <Group grow>
+                                  <Flex direction="column">
+                                    <Text size="sm">Nama TPS</Text>
+                                    <Text fw="bold">{votingStation.name}</Text>
+                                  </Flex>
+                                  <Flex direction="column">
+                                    <Text size="sm">Jumlah DPT</Text>
+                                    <Text fw="bold">
+                                      {parseInt(
+                                        votingStation.voterCount
+                                      ).toLocaleString("id-ID")}
+                                    </Text>
+                                  </Flex>
+                                </Group>
+                              </Flex>
+                            );
+                          })}
+                        </Stack>
                       </Flex>
                     );
                   })}

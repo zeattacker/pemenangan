@@ -158,70 +158,76 @@ export default function DashboardPage() {
             </Paper>
           </>
         )}
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="md" c="gray.8">
-                Total DPT
-              </Text>
-              <Text size="40px" fw="bolder">
-                {(dashboardTop?.data?.voterCount || 0).toLocaleString("id-ID")}
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="blue.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconUserEdit
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
-        <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
-          <Flex
-            gap="md"
-            align="center"
-            direction="row"
-            justify="space-between"
-            onClick={() => navigate("/panel/users")}
-          >
-            <Flex direction="column">
-              <Text size="sm" c="gray.8">
-                DPT Terdaftar
-              </Text>
-              <Text size="40px" fw="bolder">
-                {(dashboardTop?.data?.voterRegisterdCount || 0).toLocaleString(
-                  "id-ID"
-                )}
-              </Text>
-            </Flex>
-            <Flex
-              align="center"
-              justify="center"
-              bg="green.6"
-              p="sm"
-              style={{ borderRadius: "100%" }}
-            >
-              <IconUserEdit
-                style={{ width: "20px", height: "20px" }}
-                stroke={1.5}
-                color="white"
-              />
-            </Flex>
-          </Flex>
-        </Paper>
+        {(user?.isAdmin || user?.hasGroups.includes("Relawan")) && (
+          <>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="md" c="gray.8">
+                    Total DPT
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {(dashboardTop?.data?.voterCount || 0).toLocaleString(
+                      "id-ID"
+                    )}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="blue.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserEdit
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+            <Paper radius="md" p="md" style={{ cursor: "pointer" }}>
+              <Flex
+                gap="md"
+                align="center"
+                direction="row"
+                justify="space-between"
+                onClick={() => navigate("/panel/users")}
+              >
+                <Flex direction="column">
+                  <Text size="sm" c="gray.8">
+                    DPT Terdaftar
+                  </Text>
+                  <Text size="40px" fw="bolder">
+                    {(
+                      dashboardTop?.data?.voterRegisterdCount || 0
+                    ).toLocaleString("id-ID")}
+                  </Text>
+                </Flex>
+                <Flex
+                  align="center"
+                  justify="center"
+                  bg="green.6"
+                  p="sm"
+                  style={{ borderRadius: "100%" }}
+                >
+                  <IconUserEdit
+                    style={{ width: "20px", height: "20px" }}
+                    stroke={1.5}
+                    color="white"
+                  />
+                </Flex>
+              </Flex>
+            </Paper>
+          </>
+        )}
       </SimpleGrid>
       <Text size="xl" fw="bold">
         Menu
