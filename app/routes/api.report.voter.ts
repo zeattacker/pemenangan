@@ -20,7 +20,7 @@ export async function loader({ request }: LoaderFunctionArgs) {
       nama_relawan: item.name,
       no_handphone: item.phoneNumber,
       kecamatan: item.village.district.name,
-      kelurahan: item.village.district.name,
+      kelurahan: item.village.name,
       total_dpt: item.voterCount,
     }));
 
