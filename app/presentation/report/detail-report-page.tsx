@@ -80,7 +80,7 @@ export default function DetailReportPage() {
         </Stack>
       ) : (
         <Stack my="md">
-          {recapReports?.data?.map((recap) => {
+          {recapReports?.map((recap) => {
             return (
               <Flex direction="column" key={recap.id} gap="sm">
                 <Group grow>
@@ -119,7 +119,7 @@ export default function DetailReportPage() {
                               <Flex direction="column" key={second.id} gap="sm">
                                 <Group grow>
                                   <Flex direction="column">
-                                    <Text size="sm">Nama Kecamatan</Text>
+                                    <Text size="sm">Nama Kelurahan</Text>
                                     <Text fw="bold">{second.name}</Text>
                                   </Flex>
                                   <Flex direction="column">

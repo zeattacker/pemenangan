@@ -1,7 +1,17 @@
-import { Box, Button, Flex, Paper, Tabs, Text } from "@mantine/core";
+import {
+  Anchor,
+  Box,
+  Button,
+  Flex,
+  Group,
+  Paper,
+  Tabs,
+  Text,
+} from "@mantine/core";
 import { Outlet, useNavigate, useParams } from "@remix-run/react";
 import {
   IconDatabase,
+  IconDownload,
   IconPlus,
   IconPresentationAnalytics,
 } from "@tabler/icons-react";
@@ -23,6 +33,15 @@ export default function ReportPage() {
             </Text>
           </Box>
         </Flex>
+      </Paper>
+      <Paper p="sm" radius="md">
+        <Group grow >
+          <Anchor href="/api/report/voter" target="_self">
+            <Button rightSection={<IconDownload size={14} />}>
+              Download Laporan
+            </Button>
+          </Anchor>
+        </Group>
       </Paper>
       <Paper p="sm" radius="md">
         <Tabs
